@@ -1,0 +1,17 @@
+---
+PACKAGES: 
+ - 'wget'
+ - 'http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
+ - 'bash-completion'
+ - 'git'
+
+JAVA_CMD:
+ - 'wget -O /tmp/JAVA8.rpm --no-cookies --no-check-certificate --header Cookie:oraclelicense=accept-securebackup-cookie http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-linux-x64.rpm'
+
+JENKINS_CMD:
+ - 'wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo'
+ - 'rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key'
+TOMCAT_CMD:
+ - 'wget -O /tmp/apache-tomcat-8.5.24.tar.gz http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.24/bin/apache-tomcat-8.5.24.tar.gz'
+ - 'tar xfvz /tmp/apache-tomcat-8.5.24.tar.gz -C /tmp/'
+ - 'mv /tmp/apache-tomcat-8.5.24 /opt/tomcat'

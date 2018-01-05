@@ -1,0 +1,66 @@
+---
+- hosts: 127.0.0.1
+  tasks:
+  - name: devops ec2 group
+    ec2_group:
+      name: devops
+      description: an devops EC2 group
+      rules:
+        - proto: tcp
+          from_port: 22
+          to_port: 22
+          cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          from_port: 9090
+          to_port: 9090
+          cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          from_port: 8080
+          to_port: 8080
+          cidr_ip: 0.0.0.0/0
+        - proto: icmp
+          from_port: -1
+          to_port: -1
+          cidr_ip: 0.0.0.0/0
+
+
+  - name: Provision an EC2 Instance for Jenkins
+    ec2:
+      count: 1
+      region: us-west-2
+      group: devops
+      image: ami-9fa343e7
+      instance_type: t2.micro
+      key_name: PRAKASH
+      instance_tags:
+       DEVOPS: jenkins
+      user_data: |
+                 #!/bin/bash
+                 sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' ; setenforce 0
+  - name: Provision an EC2 Instance for Maven
+    ec2:
+      count: 1
+      region: us-west-2
+      group: devops
+      image: ami-9fa343e7
+      instance_type: t2.micro
+      key_name: PRAKASH
+      instance_tags:
+       DEVOPS: maven
+      user_data: |
+                 #!/bin/bash
+                 sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' ; sudo setenforce 0
+  - name: Refresh EC2 cache
+    command: /etc/ansible/ec2.py --refresh-cache
+  - name: Refresh in-memory EC2 cache
+    meta: refresh_inventory
+
+#  - name: Waiting for instances
+#    pause:
+#      minutes: 6
+- hosts: "{ tag_DEVOPS_jenkins }"
+  roles:
+    - jenkins
+- hosts: "{ tag_DEVOPS_maven }"
+  roles:
+    - maven

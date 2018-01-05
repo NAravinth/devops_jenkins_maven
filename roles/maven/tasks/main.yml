@@ -1,0 +1,7 @@
+---
+- name: Downloading Maven Files in Remote
+  command: " {{ item }} "
+  with_items: " {{ MAVEN_CMD }} "
+- name: Adding Maven path
+  shell: echo "export PATH=/opt/maven/bin:$PATH" >> /etc/profile; source /etc/profile
+

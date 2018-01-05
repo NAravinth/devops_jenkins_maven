@@ -1,0 +1,56 @@
+---
+- name: Install REquired Packages
+  yum:
+   name: " {{ item }} " 
+   state: present
+  with_items: " {{ PACKAGES }} "
+- name: Fetch  Jenkins repo
+  command: "{{ item }}"
+  with_items: " {{ JENKINS_CMD }}"
+- name: downloading JAVA
+  command: " {{ item }} "
+  with_items: " {{ JAVA_CMD }}"
+- name: Installing JAVA
+  command: rpm -ivh /tmp/JAVA8.rpm
+  register: RPM_OUT
+  ignore_errors: True
+- name: Install jenkins repo
+  force_handlers: yes
+  yum: name=jenkins state=present
+- name: Reloading demaon
+  command: systemctl daemon-reload
+- name: Starting Jenkins Service
+  shell:
+   cmd: echo "Starting jenkins"
+  notify:
+    - Start Jenkins
+  when: RPM_OUT | success
+- name: Installing tomcat
+  command: " {{ item }} "
+  with_items: " {{ TOMCAT_CMD }} "
+- name: Copying tomcat_user.xml to remote
+  copy:
+   src: tomcat-users.xml
+   dest: /opt/tomcat/conf/tomcat-users.xml
+   force: yes
+- name: Copying server.xml to remote
+  copy:
+   src: server.xml
+   dest: /opt/tomcat/conf/server.xml
+- name: Copying tomcat context xml to remote
+  copy:
+   src: context.xml
+   dest: /opt/tomcat/webapps/manager/META-INF/context.xml
+   force: yes
+- name: Copying tomcat init script
+  copy:
+   src: tomcat_init
+   dest: /etc/init.d/
+   mode: 0755
+- name: Adding tomcat to bootstart
+  command: chkconfig --add /etc/init.d/tomcat_init
+- name: Reloading demaon
+  command: systemctl daemon-reload
+- name: starting apache
+  service: name=tomcat_init state=started
+...     

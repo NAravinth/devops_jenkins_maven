@@ -1,0 +1,6 @@
+---
+MAVEN_CMD:
+ - 'yum install wget -y'
+ - 'wget -O /tmp/apache-maven-3.5.2-bin.tar.gz http://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz'
+ - 'tar xfvz /tmp/apache-maven-3.5.2-bin.tar.gz -C /tmp/'
+ - 'mv /tmp/apache-maven-3.5.2 /opt/maven'

@@ -1,0 +1,15 @@
+#!/bin/bash
+# chkconfig: 345 99 01
+case "$1" in
+  start)
+    echo " Starting APACHE TOMCAT"
+    /opt/tomcat/bin/startup.sh;;
+  stop)
+    echo " Stopping APACHE TOMCAT"
+    /opt/tomcat/bin/shutdown.sh;;
+  restart)
+    /opt/tomcat/bin/startup.sh
+    /opt/tomcat/bin/shutdown.sh;;
+   *)
+   echo "usage /etc/init.d/tomcat start|stop|restart" ;;
+esac
