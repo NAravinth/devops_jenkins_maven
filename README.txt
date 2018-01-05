@@ -48,3 +48,8 @@ source /etc/profile
 
 
 --- FINALLY Execute main.yml play -- 
+
+-Note-
+Jenkins port 8080
+TOMCAT port : 9090
+TOMCAT MANAGER credentials: id-admin password-admin
