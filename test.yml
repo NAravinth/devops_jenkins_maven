@@ -1,8 +1,0 @@
----
-- hosts: "{ tag_DEVOPS_jenkins }"
-  gather_facts: no
-  roles:
-    - jenkins
-- hosts: "{ tag_DEVOPS_maven }"
-  roles:
-    - maven
