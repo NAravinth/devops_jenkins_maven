@@ -1,10 +1,10 @@
 ---
 - hosts: 127.0.0.1
   tasks:
-  - name: devops ec2 group
+  - name: Creating devops security group
     ec2_group:
       name: devops
-      description: an devops EC2 group
+      description: A devops EC2 group
       rules:
         - proto: tcp
           from_port: 22
@@ -50,14 +50,17 @@
       user_data: |
                  #!/bin/bash
                  sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' ; sudo setenforce 0
-  - name: Refresh EC2 cache
+
+  - name: Refreshing EC2 inventory cache. This will take 3-4 Minutes....................!!!!!!!!!
     command: /etc/ansible/ec2.py --refresh-cache
   - name: Refresh in-memory EC2 cache
     meta: refresh_inventory
+  - name: Listing hosts
+    command: /etc/ansible/ec2.py --list
 
 #  - name: Waiting for instances
 #    pause:
-#      minutes: 6
+#      minutes: 2
 - hosts: "{ tag_DEVOPS_jenkins }"
   roles:
     - jenkins

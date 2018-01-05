@@ -4,3 +4,6 @@ MAVEN_CMD:
  - 'wget -O /tmp/apache-maven-3.5.2-bin.tar.gz http://www-eu.apache.org/dist/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz'
  - 'tar xfvz /tmp/apache-maven-3.5.2-bin.tar.gz -C /tmp/'
  - 'mv /tmp/apache-maven-3.5.2 /opt/maven'
+
+JAVA_CMD:
+ - 'wget -O /tmp/JAVA8.rpm --no-cookies --no-check-certificate --header Cookie:oraclelicense=accept-securebackup-cookie http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-linux-x64.rpm'

@@ -1,0 +1,14 @@
+---
+- hosts: 127.0.0.1
+  tasks: 
+  - name: Configuring dynamic invetory
+    command: wget -O /etc/ansible/ec2.py https://raw.github.com/ansible/ansible/devel/contrib/inventory/ec2.py
+  - name:
+    command: chmod +x /etc/ansible/ec2.py
+  - name: Configuring dynamic invetory
+    command: wget -O /etc/ansible/ec2.ini https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/ec2.ini
+  - name:
+    shell: echo "export ANSIBLE_HOSTS=/etc/ansible/ec2.py" >> /etc/profile
+  - name:
+    shell: echo "export EC2_INI_PATH=/etc/ansible/ec2.ini" >> /etc/profile
+- include: aws_instances_creation.yml

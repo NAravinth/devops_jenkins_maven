@@ -4,4 +4,12 @@
   with_items: " {{ MAVEN_CMD }} "
 - name: Adding Maven path
   shell: echo "export PATH=/opt/maven/bin:$PATH" >> /etc/profile; source /etc/profile
+- name: downloading JAVA
+  command: " {{ item }} "
+  with_items: " {{ JAVA_CMD }}"
+- name: Installing JAVA
+  command: rpm -ivh /tmp/JAVA8.rpm
+  register: RPM_OUT
+  ignore_errors: True
+
 
