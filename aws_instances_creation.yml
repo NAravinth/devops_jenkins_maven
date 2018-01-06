@@ -31,7 +31,7 @@
       group: devops
       image: ami-9fa343e7
       instance_type: t2.micro
-      key_name: PRAKASH
+      key_name: new
       instance_tags:
        DEVOPS: jenkins
       user_data: |
@@ -44,7 +44,7 @@
       group: devops
       image: ami-9fa343e7
       instance_type: t2.micro
-      key_name: PRAKASH
+      key_name: new
       instance_tags:
        DEVOPS: maven
       user_data: |
